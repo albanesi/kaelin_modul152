@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Color on Scroll</title>
+ 
+  <style>
+    body {
+      background-color: #FDE74C;
+      transition: all 1s ease-in;
+      padding: 50px;
+      color: #111;
+      font-family: sans-serif;
+      line-height: 32px;
+      font-size: 18px;
+    }
+ 
+    h1 {
+      font-family: sans-serif;
+    }
+ 
+    .colorOne {
+      background-color: #9BC53D;
+      color: #000;
+    }
+ 
+    .colorTwo {
+      background-color: #FFF;
+      color: #000;
+    }
+ 
+    #mainContent {
+      width: 420px;
+      margin: 0 auto;
+    }
+ 
+    #mainContent p {
+      padding: 20px;
+    }
+ 
+    #mainContent #firstBox {
+      font-weight: bold;
+      transform: translate3d(-30px, 0, 0);
+      transition: all .5s ease-out;
+      opacity: 0;
+    }
+ 
+    #mainContent #firstBox.active {
+      background-color: #333;
+      color: #FFF;
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+ 
+    #mainContent #secondBox {
+      transition: all .2s ease-in-out;
+      transform: translate3d(0, 30px, 0);
+      opacity: 0;
+    }
+ 
+    #mainContent #secondBox.active {
+      background-color: #1581AF;
+      color: #FFF;
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+ 
+    #mainContent ol li {
+      padding-left: 7px;
+      margin-bottom: 15px;
+      transition: all .2s ease-in-out;
+      transform: translate3d(20px, 0, 0);
+      opacity: 0;
+    }
+ 
+    #mainContent ol li.active {
+      transform: translate3d(0px, 0, 0);
+      opacity: 1;
+    }
+  </style>
+</head>
+ 
+<body>
+  <div id="mainContent">
+    <h1>Scroll Down</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis massa a arcu efficitur suscipit vehicula et risus.</p>
+    <ol id="myList">
+      <li>Apple unterstützt keine OGG Dateiformate, und das Vorhandensein gängiger und weit verbreiteter Formate wie MP3 lässt darauf schließen, dass die OGG Datei in der digitalen Medienwelt nicht so häufig verbreitet ist</li>
+      <li>etwas sehr energisch angehen, möglicherweise ohne Rücksicht auf die Belastung zukünftiger Ressourcen- to ogg. Der Ausdruck Ogg kommt von der Computerspiel Netrek</li>
+      <li>MP3 ist ein Verfahren zur verlustbehafteten Kompression digital gespeicherter Audiodaten</li>
+      <li>Das Teilen im Internet kann also je nach Umständen zu urheberrechtlichen Problemen führen</li>
+      <li>Flac wäre die Abkürzung für Free Lossless Audio Codec</li>
+      <li>Alban Selimi</li>
+      <li>TBZ is cool.</li>
+      <li>Kann grossen Speicherplatz für sich beanspruchen. Kann nicht in Iphone oder Ipod ohne weiteres abgespielt werden</li>
+      <li>Flac wäre die Abkürzung für Free Lossless Audio Codec</li>
+      <li>flac ist ein Codec zur verlustfreien Audiodatenkompression</li>
+      <li>Apple unterstützt keine OGG Dateiformate, und das Vorhandensein gängiger und weit verbreiteter Formate wie MP3 lässt darauf schließen, dass die OGG Datei in der digitalen Medienwelt nicht so häufig verbreitet ist</li>
+      <li>etwas sehr energisch angehen, möglicherweise ohne Rücksicht auf die Belastung zukünftiger Ressourcen- to ogg. Der Ausdruck Ogg kommt von der Computerspiel Netrek</li>
+      <li>MP3 ist ein Verfahren zur verlustbehafteten Kompression digital gespeicherter Audiodaten</li>
+      <li>Das Teilen im Internet kann also je nach Umständen zu urheberrechtlichen Problemen führen</li>
+      <li>Flac wäre die Abkürzung für Free Lossless Audio Codec</li>
+      <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+    </ol>
+    <p id="firstBox">Apple unterstützt keine OGG Dateiformate, und das Vorhandensein gängiger und weit verbreiteter Formate wie MP3 lässt darauf schließen, dass die OGG Datei in der digitalen Medienwelt nicht so häufig verbreitet ist</p>
+    <p>Nunc blandit varius sapien quis ultrices. Vestibulum et consequat augue. Pellentesque et maximus nisl, sit amet dictum ante.</p>
+    <p id="secondBox">Kann grossen Speicherplatz für sich beanspruchen. Kann nicht in Iphone oder Ipod ohne weiteres abgespielt werden</p>
+
+  </div>
+ 
+  <script>
+    var isScrolling = false;
+ 
+    window.addEventListener("scroll", throttleScroll, false);
+ 
+    function throttleScroll(e) {
+      if (isScrolling == false) {
+        window.requestAnimationFrame(function() {
+          scrolling(e);
+          isScrolling = false;
+        });
+      }
+      isScrolling = true;
+    }
+ 
+    document.addEventListener("DOMContentLoaded", scrolling, false);
+ 
+    var listItems = document.querySelectorAll("#mainContent ol li");
+    var firstBox = document.querySelector("#firstBox");
+    var secondBox = document.querySelector("#secondBox");
+ 
+    function scrolling(e) {
+ 
+      if (isPartiallyVisible(firstBox)) {
+        firstBox.classList.add("active");
+ 
+        document.body.classList.add("colorOne");
+        document.body.classList.remove("colorTwo");
+      } else {
+        document.body.classList.remove("colorOne");
+        document.body.classList.remove("colorTwo");
+      }
+ 
+      if (isFullyVisible(secondBox)) {
+        secondBox.classList.add("active");
+ 
+        document.body.classList.add("colorTwo");
+        document.body.classList.remove("colorOne");
+      }
+ 
+      for (var i = 0; i < listItems.length; i++) {
+        var listItem = listItems[i];
+ 
+        if (isPartiallyVisible(listItem)) {
+          listItem.classList.add("active");
+        } else {
+          listItem.classList.remove("active");
+        }
+      }
+    }
+ 
+    function isPartiallyVisible(el) {
+      var elementBoundary = el.getBoundingClientRect();
+ 
+      var top = elementBoundary.top;
+      var bottom = elementBoundary.bottom;
+      var height = elementBoundary.height;
+ 
+      return ((top + height >= 0) && (height + window.innerHeight >= bottom));
+    }
+ 
+    function isFullyVisible(el) {
+      var elementBoundary = el.getBoundingClientRect();
+ 
+      var top = elementBoundary.top;
+      var bottom = elementBoundary.bottom;
+ 
+      return ((top >= 0) && (bottom <= window.innerHeight));
+    }
+  </script>
+</body>
+ 
+</html>
